@@ -1,28 +1,43 @@
 
 
 
-
-
-// project not even close to finished. Way too hard to work on this on top of group project and life responsibilites...have to circle back to it. 
-
 var searchBtn = document.querySelector('#searchBtn');
 var searchForm = document.querySelector('#searchForm').value;
+var searchedLoc;
+var currDate = moment().subtract(10, 'days').calendar();
+var apiKey = "3097b2b05f2146714d584e3f8a100360";
+var lat = .coord.lat;
+var lon = data.coord.lon;
+var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon" + lon "&exclude=minutely,hourly,daily,alerts&appid=3097b2b05f2146714d584e3f8a100360";
 
 
-function displayResults(event) {
+
+// process search entry to see if entry is valid
+function processSearch (event) {
   event.preventDefault();
 
   if (!searchForm) {
     console.error('You need a search input value!');
     return;
+  } else {
+    currSearchResults();
   }
-
-//   var queryString = './search-results.html?q=' + searchInputVal + '&format=' + formatInputVal;
-
-//   location.assign(queryString);
 }
 
+// process valid search entry to display results
+function currSearchResults() [
+    
+    fetch(apiUrl)
+    .then(function(response) {
+      console.log(response);
+      var currCity_date = 
+    })
+
+]
+
+
 searchBtn.addEventListener('click', displayResults);
+ 
 
 
 
@@ -35,6 +50,9 @@ searchBtn.addEventListener('click', displayResults);
 // var inputdrink = 'margarita'
 // // var apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + input;
 // // var api = "https://api.documenu.com/v2/restaurant/4072702673999819?key=cd34a125c29432346ba6f73259e01e32";
+
+
+
 // function displayResults() {
 //     // inputdrink = search_inputdrink
 //     var apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + inputdrink;
