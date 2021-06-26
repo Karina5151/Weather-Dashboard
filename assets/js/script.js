@@ -2,41 +2,52 @@
 
 
 var searchBtn = document.querySelector('#searchBtn');
-var searchForm = document.querySelector('#searchForm').value;
-var searchedLoc;
+var searchForm = document.querySelector('#searchForm');
+var searchedCity = searchForm.value
 var currDate = moment().subtract(10, 'days').calendar();
 var apiKey = "3097b2b05f2146714d584e3f8a100360";
-var lat = .coord.lat;
-var lon = data.coord.lon;
-var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon" + lon "&exclude=minutely,hourly,daily,alerts&appid=3097b2b05f2146714d584e3f8a100360";
+// var lat = data.coord.lat;
+// var lon = data.coord.lon;
+var apiUrl = "api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=097b2b05f2146714d584e3f8a100360";
 
 
+// 1. Get the user input (make sure you can console log it
+// 2. Get the user input from your event listener into your API function. You can use global variables or (even better practice) an argument for your funciton. Make sure you can console log the value there as well
+// 3. Use that input to build out your url
+// 4. Make the API call and console log your response.
+//start looking at the structure of the response and how to snag the values you need to use to update the DOM and start building out that code.
 
 // process search entry to see if entry is valid
-function processSearch (event) {
-  event.preventDefault();
-
+function processSearch() {
+  // grab user input
+    console.log(searchedCity);
   if (!searchForm) {
     console.error('You need a search input value!');
     return;
   } else {
-    currSearchResults();
+    // currSearchResults();
+    // pass the input to the next function
   }
 }
 
+
+
+
+
 // process valid search entry to display results
-function currSearchResults() [
+
+// function currSearchResults() [
     
-    fetch(apiUrl)
-    .then(function(response) {
-      console.log(response);
-      var currCity_date = 
-    })
+//     fetch(apiUrl)
+//     .then(function(response) {
+//       console.log(response);
+//       var currCity_date = 
+//     })
 
-]
+// ]
 
 
-searchBtn.addEventListener('click', displayResults);
+searchBtn.addEventListener('click', processSearch);
  
 
 
@@ -83,6 +94,8 @@ searchBtn.addEventListener('click', displayResults);
 //  };
 
 //     console.log("fetching...")
+
+
 // function displayResults2() {
 //     let zipcode = '';
 //         fetch("https://api.documenu.com/v2/restaurants/zip_code/" + zipcode + "?key=cd34a125c29432346ba6f73259e01e32")
