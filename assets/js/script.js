@@ -2,15 +2,13 @@
 
 
 var searchBtn = document.querySelector('#searchBtn');
-var searchForm = document.querySelector('#searchForm');
-var searchedCity = searchForm.value
+var userNode = document.querySelector('#searchForm');
 var currDate = moment().subtract(10, 'days').calendar();
 var apiKey = "3097b2b05f2146714d584e3f8a100360";
-// var lat = data.coord.lat;
-// var lon = data.coord.lon;
-var apiUrl = "api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&appid=097b2b05f2146714d584e3f8a100360";
 
 
+
+// Ctrl D
 // 1. Get the user input (make sure you can console log it
 // 2. Get the user input from your event listener into your API function. You can use global variables or (even better practice) an argument for your funciton. Make sure you can console log the value there as well
 // 3. Use that input to build out your url
@@ -20,31 +18,30 @@ var apiUrl = "api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&app
 // process search entry to see if entry is valid
 function processSearch() {
   // grab user input
-    console.log(searchedCity);
-  if (!searchForm) {
+    console.log(userNode.value);
+    if (userNode.value.length === 0) {
     console.error('You need a search input value!');
     return;
   } else {
-    // currSearchResults();
+    var userInput = userNode.value
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=3097b2b05f2146714d584e3f8a100360";
+    console.log(apiUrl);
     // pass the input to the next function
+    currSearchResults(apiUrl);
+    
   }
 }
 
 
-
-
-
 // process valid search entry to display results
+function currSearchResults(apiUrl) {
+    fetch(apiUrl)
+      .then(function(response) {
+        console.log(response.body);
+        // var currCity_date = 
+      })
 
-// function currSearchResults() [
-    
-//     fetch(apiUrl)
-//     .then(function(response) {
-//       console.log(response);
-//       var currCity_date = 
-//     })
-
-// ]
+  }
 
 
 searchBtn.addEventListener('click', processSearch);
