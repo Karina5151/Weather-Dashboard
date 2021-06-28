@@ -19,17 +19,16 @@ var apiKey = "3097b2b05f2146714d584e3f8a100360";
 function processSearch() {
   // grab user input
     console.log(userNode.value);
-    if (userNode.value.length === 0) {
-    console.error('You need a search input value!');
-    return;
-  } else {
-    var userInput = userNode.value
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=3097b2b05f2146714d584e3f8a100360";
-    console.log(apiUrl);
-    // pass the input to the next function
-    currSearchResults(apiUrl);
-    
-  }
+      if (userNode.value.length === 0) {
+      console.error('You need a search input value!');
+      return;
+    } else {
+      var userInput = userNode.value
+      var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&appid=3097b2b05f2146714d584e3f8a100360";
+      console.log(apiUrl);
+      // pass the input to the next function
+      currSearchResults(apiUrl);
+    }
 }
 
 
@@ -37,10 +36,11 @@ function processSearch() {
 function currSearchResults(apiUrl) {
     fetch(apiUrl)
       .then(function(response) {
-        console.log(response.body);
-        // var currCity_date = 
+        return response.json(); 
       })
-
+      .then(function(data) {
+        console.log(data);
+      })
   }
 
 
