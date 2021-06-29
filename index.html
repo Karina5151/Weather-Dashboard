@@ -22,7 +22,7 @@
         <div id="searchAside" class="col-3 d-flex flex-column">
             <section1 id="searchSection">
                 <h3>Search for a City:</h3>
-                <input id="searchForm"class="search my-2" placeholder="Search your city"></input>
+                <input id="searchForm"class="border border-dark search my-2" placeholder="Search your city"></input>
                 <button id="searchBtn" type="button" class="btn btn-primary my-2">Search</button>
             </section1>
             <section2>
@@ -31,8 +31,13 @@
         </div>
 
         <div id="resultsContainer" class="col-9">
-            <section id="currWeather" class="border border-dark max-height"></section>  
-            <section id="5day" class="max-height"></section>         
+            <section id="currWeather" class="border border-dark card" style="height: 400px">
+                <!-- <h3>Current Weather:</h3> -->
+            </section>
+                
+            <section id="5day" class="max-height" style="height: 400px">
+                <h3>5 Day Forecast:</h3>
+            </section>         
         <div>
            
     </main>

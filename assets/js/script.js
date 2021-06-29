@@ -8,9 +8,8 @@ var apiKey = "3097b2b05f2146714d584e3f8a100360";
 
 
 
-// Ctrl D
-// 1. Get the user input (make sure you can console log it
-// 2. Get the user input from your event listener into your API function. You can use global variables or (even better practice) an argument for your funciton. Make sure you can console log the value there as well
+
+
 // 3. Use that input to build out your url
 // 4. Make the API call and console log your response.
 //start looking at the structure of the response and how to snag the values you need to use to update the DOM and start building out that code.
@@ -40,6 +39,16 @@ function currSearchResults(apiUrl) {
       })
       .then(function(data) {
         console.log(data);
+        var currWeatherResults = document.getElementById("currWeather");
+        var cardHeader = document.createElement("h3")
+            cardHeader.classList.add("card-header");
+        var currDate = moment().format('MMMM Do YYYY, h:mm a');
+        // $("#").text
+          //  currDate.format("dddd, MMMM Do");
+        var cityHeader = ("Current weather for " + data.name + " (" + currDate) + ")";
+            console.log(cityHeader)
+        cardHeader.append(cityHeader);
+        currWeatherResults.append(cardHeader);
       })
   }
 
