@@ -39,16 +39,26 @@ function currSearchResults(apiUrl) {
       })
       .then(function(data) {
         console.log(data);
+        // select weather container card
         var currWeatherResults = document.getElementById("currWeather");
+        // add location card header
         var cardHeader = document.createElement("h3")
             cardHeader.classList.add("card-header");
+        // add current date/time to card header
         var currDate = moment().format('MMMM Do YYYY, h:mm a');
-        // $("#").text
-          //  currDate.format("dddd, MMMM Do");
         var cityHeader = ("Current weather for " + data.name + " (" + currDate) + ")";
             console.log(cityHeader)
+        // append card header to card
         cardHeader.append(cityHeader);
         currWeatherResults.append(cardHeader);
+        var cardBody = document.createElement("card-body");
+        currWeatherResults.append(cardBody);
+        // display temperature
+        cardBody.append($("<p>").attr("class", "card-text").html("Temperature: " + data.main.temp));
+        console.log(data.main.temp);
+        // display wind speed
+        // display humidity
+        // display UV Index
       })
   }
 
