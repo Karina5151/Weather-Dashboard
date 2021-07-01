@@ -71,14 +71,37 @@ function currSearchResults(apiUrl) {
           currWeatherResults.append(currHumidity);
 
         // display UV Index
-        // var currUV = $(`<div class="card-body font-weight-bold">
-        //                 <p>UV Index: ${data}</p>
-        //                 </div>`);
-        //   currWeatherResults.append(currUV);
-          
-      })
-  }
+        var lat = data.coord.lat
+        var lon = data.coord.lon
+        var geoUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
+        console.log(geoUrl);
 
+        fetch(geoUrl)
+          .then(function(response) {
+            return response.json(); 
+          })
+          .then(function(UVdata) {
+            console.log(UVdata);
+          var currUV = $(`<div class="card-body font-weight-bold">
+                          <p>UV Index: ${UVdata.current.uvi}</p>
+                          </div>`);
+            currWeatherResults.append(currUV);
+            
+          var fiveDay = UVdata.daily
+          for (let i = 0; i <= 4; i++) {
+            fiveDay[i];
+            // console.log(fiveDay[i]);
+            renderDay(fiveDay[i]);
+          }
+
+
+        })
+  })
+}
+
+function renderDay(day) {  
+console.log(day);
+}
 
 searchBtn.addEventListener('click', processSearch);
  
