@@ -73,7 +73,7 @@ function currSearchResults(apiUrl) {
         // display UV Index
         var lat = data.coord.lat
         var lon = data.coord.lon
-        var geoUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
+        var geoUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
         console.log(geoUrl);
 
         fetch(geoUrl)
@@ -88,7 +88,7 @@ function currSearchResults(apiUrl) {
             currWeatherResults.append(currUV);
             
           var fiveDay = UVdata.daily
-          for (let i = 0; i <= 4; i++) {
+          for (let i = 1; i <= 5; i++) {
             fiveDay[i];
             // console.log(fiveDay[i]);
             renderDay(fiveDay[i]);
@@ -100,8 +100,33 @@ function currSearchResults(apiUrl) {
 }
 
 function renderDay(day) {  
-console.log(day);
+  console.log(day);
+// creating dates for 5 day forecast
+var date = new Date (day.dt*1000);
+var formattedDate = (date.getMonth()+1) + '/' + date.getDate() + '/' + date.getFullYear();
+
+//add temp
+var dayTemp = day.temp.day
+
+
+// making day cards
+var dayCard = $(`<div class="card forecastCard">
+                  <h4>${formattedDate}</h4>
+                  <p>Temp: ${dayTemp} °F</p>
+                </div>`);
+console.log(date);
+
+// apending day cards to html container
+var fiveContainer = $("#fiveDay")
+fiveContainer.append(dayCard);
+
+
+
 }
+
+
+
+
 
 searchBtn.addEventListener('click', processSearch);
  

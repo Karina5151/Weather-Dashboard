@@ -32,3 +32,15 @@ main {
 .max-height {
     max-height: 50%;
 }
+
+#fiveDay {
+    display:flex;
+    flex-direction: row;
+
+}
+
+.forecastCard {
+    width: 400px;
+    margin: 15px;
+
+}
