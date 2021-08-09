@@ -21,6 +21,10 @@ main {
     max-width: 75%;
 }
 
+/* .currWeather {
+    margin-bottom: 50px;
+} */
+
 .searchAside {
     float: left;
 }
@@ -29,18 +33,18 @@ main {
     border-bottom: 5px solid rgb(194, 191, 191);
 }
 
-.max-height {
+.forecastDisplay {
     max-height: 50%;
 }
 
-#fiveDay {
+#fiveDayCards {
     display:flex;
     flex-direction: row;
-
+    justify-content: space-between;
+    margin: 0 auto;
 }
 
 .forecastCard {
-    width: 400px;
-    margin: 15px;
-
+    width: 200px;
+ 
 }

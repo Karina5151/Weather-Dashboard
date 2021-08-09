@@ -19,24 +19,29 @@
     </header>
 
     <main>
+        <!-- Aside Bar -->
         <div id="searchAside" class="col-3 d-flex flex-column">
+            <!-- Search Bar  -->
             <section1 id="searchSection">
                 <h3>Search for a City:</h3>
                 <input id="searchForm"class="border border-dark search my-2" placeholder="Search your city"></input>
                 <button id="searchBtn" type="button" class="btn btn-primary my-2">Search</button>
             </section1>
+            <!-- Past Searches Display -->
             <section2>
                 <div id="savedCities"></div>
             </section2>
         </div>
 
+        <!-- Weather Display -->
         <div id="resultsContainer" class="col-9">
-            <section id="currWeather" class="border border-dark card" style="height: 400px">
+            <!-- Current Weather Display -->
+            <section id="currWeather" class="border border-dark card">
             </section>
-                
-            <section class="max-height" style="height: 400px">
+            <!-- Five Day Forecast Display     -->
+            <section id="forecastDisplay" class="max-height mt-5" style="height: 400px">
                 <h3>5 Day Forecast:</h3>
-                    <div id="fiveDay"></div>
+                    <div id="fiveDayCards"></div>
             </section>         
         <div>
            
