@@ -1,8 +1,6 @@
 var searchBtn = document.querySelector('#searchBtn');
-// var currDate = moment().subtract(10, 'days').calendar();
 var apiKey = "3097b2b05f2146714d584e3f8a100360";
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
-
 
 
 // process search entry to see if entry is valid
@@ -10,7 +8,7 @@ function processSearch(a) {
   a.preventDefault();
   // grab user input
   var userInput = $('#searchForm').val();
-  console.log("User Input Results:", userInput);
+  // console.log("User Input Results:", userInput);
 
   if (userInput.length === 0) {
     console.error('You need a search input value!');
@@ -26,7 +24,6 @@ function processSearch(a) {
 
 // Display Current Weather Results
 function currSearchResults(userInput) {
-  // $('#currWeather').empty();
 
   // fetch current weather data
   var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=${apiKey}&units=imperial`;
@@ -55,29 +52,28 @@ function currSearchResults(userInput) {
           // Create Current Weather Card
           var currDate = moment().format('dddd MMMM Do YYYY');
           var weatherImg = data.weather[0].icon
+          var weatherDescript = data.weather[0].description
 
           // UV Index Severity Color Indicator
           var uvIndex = forecastData.current.uvi
           var colorIndicator;
           var textColor;
-              if (uvIndex <= 3) {
-                colorIndicator = "green";
-                textColor = "text-white"
-              }
-              else if (uvIndex >= 3 || uvIndex <= 6) {
-                colorIndicator = "yellow";
-                textColor = "text-dark"
-              }
-              else if (uvIndex >= 6 || uvIndex <= 8) {
-                colorIndicator = "orange";
-                textColor = "text-white"
-              }
-              else {
-                colorIndicator = "red";
-                textColor = "text-white"
-              }
-              console.log(colorIndicator);
-          // var uvBadge = $("<span>").attr("class", "badge")..attr("style", ("background-color:" + colorIndicator)).text(uvIndex)
+          if (uvIndex <= 3) {
+            colorIndicator = "green";
+            textColor = "text-white"
+          }
+          else if (uvIndex >= 3 || uvIndex <= 6) {
+            colorIndicator = "yellow";
+            textColor = "text-dark"
+          }
+          else if (uvIndex >= 6 || uvIndex <= 8) {
+            colorIndicator = "orange";
+            textColor = "text-white"
+          }
+          else {
+            colorIndicator = "red";
+            textColor = "text-white"
+          }
 
           // Dynamically create card
           var currWeatherCard = $(`
@@ -89,6 +85,7 @@ function currSearchResults(userInput) {
             </h3>
           </div>
           <div class="card-body font-weight-bold">
+            <p>Weather: ${weatherDescript}</p>
             <p>Temperature: ${data.main.temp} °F</p>
             <p>Wind: ${data.wind.speed} MPH</p>
             <p>Humidity: ${data.main.humidity} %</p>
