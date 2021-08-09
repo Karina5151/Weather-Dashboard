@@ -1,11 +1,11 @@
 var searchBtn = document.querySelector('#searchBtn');
-// var userNode = document.querySelector('#searchForm');
 var currDate = moment().subtract(10, 'days').calendar();
 var apiKey = "3097b2b05f2146714d584e3f8a100360";
 
 
 // process search entry to see if entry is valid
-function processSearch() {
+function processSearch(a) {
+  a.preventDefault();
   // grab user input
   var userInput = $('#searchForm').val();
   console.log("User Input Results:", userInput);
@@ -14,12 +14,15 @@ function processSearch() {
     console.error('You need a search input value!');
     return;
   } else {
+    $('#currWeather').empty();
+    $('#fiveDayCards').empty();
     currSearchResults(userInput);
   }
 }
 
 // Display Current Weather Results
 function currSearchResults(userInput) {
+  // $('#currWeather').empty();
 
   // fetch current weather data
   var weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${userInput}&appid=${apiKey}&units=imperial`;
@@ -30,7 +33,7 @@ function currSearchResults(userInput) {
       return response.json();
     })
     .then(function (data) {
-      console.log("Weather Data Results:",data);
+      console.log("Weather Data Results:", data);
 
       // fetch current UV data
       var lat = data.coord.lat
@@ -48,7 +51,7 @@ function currSearchResults(userInput) {
           // Create Current Weather Card
           var currDate = moment().format('dddd MMMM Do YYYY');
           var weatherImg = data.weather[0].icon
-           // Dynamically create card
+          // Dynamically create card
           var currWeatherCard = $(`
         <div class="card weatherCard">
           <div class="card-header">
@@ -69,47 +72,54 @@ function currSearchResults(userInput) {
           var currWeatherResults = $("#currWeather");
           currWeatherResults.append(currWeatherCard)
 
-          // Iterate through 5-Day Forecast Data to get single day data
-          var fiveDay = forecastData.daily
-          for (let i = 1; i <= 5; i++) {
-            fiveDay[i];
-            // console.log(fiveDay[i]);
-            fiveDayForecaseResults(fiveDay[i]);
-          }
+
+          fiveDayForecastResults(forecastData);
         });
     });
 }
 
-// Display 5 Day Forecast Results
-function fiveDayForecaseResults(day) {
-  // redefine "fiveDay[i]" to "day" by changing the term when passing it through
-  console.log("Day Results:", day);
- 
-  // Creating 5 day Forecast Cards
-  var date = new Date(day.dt * 1000);
-      console.log("Date Results:", date);
-  var dayTemp = day.temp.day
-  var dayImg = day.weather[0].icon
-  var dayDescript = day.weather[0].description
-  var dayWind = day.wind_speed
-  var dayHumidity = day.humidity
-  // Dynamically create card
-  var dayCard = $(`
-      <div class="card forecastCard">
-        <div class="card-header">
-          <h4 class="card-title">${moment(date).format('dddd')} ${moment(date).format('L')}</h4>
-        </div>
-        <div class="card-body">
-          <img src="https://openweathermap.org/img/wn/${dayImg}@2x.png"/>
-          <p>Weather: ${dayDescript}</p>
-          <p>Temp: ${dayTemp} °F</p>
-          <p>Wind: ${dayWind} MPH</p>
-          <p>Humidity: ${dayHumidity} %</p>
-      </div>`);
 
-  // Append Forecast Cards to HTML container
-  var fiveContainer = $("#fiveDayCards")
-  fiveContainer.append(dayCard);
+
+// Display 5 Day Forecast Results
+function fiveDayForecastResults(forecastData) {
+
+  // Dynamically create forecast header and container for the 5 cards
+  var forecastDisplay = $("#forecastDisplay");
+  var forecastHeader = $("<h3>").text("5-Day Forecast");
+  forecastDisplay.append(forecastHeader);
+  var fiveDayCards = $("<div>").attr("id","fiveDayCards");
+  forecastDisplay.append(fiveDayCards)
+
+  // Iterate through 5-Day Forecast Data to get single day data
+  var fiveDay = forecastData.daily
+
+  for (let i = 1; i <= 5; i++) {
+    var day = fiveDay[i];
+    console.log("Day Results:", day);
+    
+    // Creating 5 day Forecast Cards
+    var date = new Date(day.dt * 1000);
+        console.log("Date Results:", date);
+    var dayTemp = day.temp.day
+    var dayImg = day.weather[0].icon
+    var dayDescript = day.weather[0].description
+    var dayWind = day.wind_speed
+    var dayHumidity = day.humidity
+
+    // Dynamically create card
+    $('#fiveDayCards').append(`
+          <div class="card forecastCard">
+          <div class="card-header">
+            <h4 class="card-title">${moment(date).format('dddd')} ${moment(date).format('L')}</h4>
+          </div>
+          <div class="card-body">
+            <img src="https://openweathermap.org/img/wn/${dayImg}@2x.png"/>
+            <p>Weather: ${dayDescript}</p>
+            <p>Temp: ${dayTemp} °F</p>
+            <p>Wind: ${dayWind} MPH</p>
+            <p>Humidity: ${dayHumidity} %</p>
+          </div>`);
+  }
 }
 
 
@@ -119,3 +129,57 @@ function fiveDayForecaseResults(day) {
 searchBtn.addEventListener('click', processSearch);
 
 
+
+// fiveDayForecastResults(forecastData);
+// });
+// });
+// }
+
+
+
+// // Display 5 Day Forecast Results
+// function fiveDayForecastResults(forecastData) {
+
+// // redefine "fiveDay[i]" to "day" by changing the term when passing it through
+// console.log("forecastData Results:", forecastData);
+
+// var forecastDisplay = $("#forecastDisplay");
+// var forecastHeader = $("<h3>").text("5-Day Forecast");
+// forecastDisplay.append(forecastHeader);
+// var fiveDayCards = $("<div>");
+// forecastDisplay.append(fiveDayCards)
+
+// // Iterate through 5-Day Forecast Data to get single day data
+// var fiveDay = forecastData.daily
+
+// for (let i = 1; i <= 5; i++) {
+// var day = fiveDay[i];
+
+// // Creating 5 day Forecast Cards
+// var date = new Date(day.dt * 1000);
+// console.log("Date Results:", date);
+// var dayTemp = day.temp.day
+// var dayImg = day.weather[0].icon
+// var dayDescript = day.weather[0].description
+// var dayWind = day.wind_speed
+// var dayHumidity = day.humidity
+// // Dynamically create card
+// var dayCard = $(`
+//   <div class="card forecastCard">
+//   <div class="card-header">
+//     <h4 class="card-title">${moment(date).format('dddd')} ${moment(date).format('L')}</h4>
+//   </div>
+//   <div class="card-body">
+//     <img src="https://openweathermap.org/img/wn/${dayImg}@2x.png"/>
+//     <p>Weather: ${dayDescript}</p>
+//     <p>Temp: ${dayTemp} °F</p>
+//     <p>Wind: ${dayWind} MPH</p>
+//     <p>Humidity: ${dayHumidity} %</p>
+//   </div>`);
+
+// // Append Forecast Cards to HTML container
+// fiveDayCards.append(dayCard);
+// }
+
+
+// }
