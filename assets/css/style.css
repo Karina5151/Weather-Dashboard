@@ -21,9 +21,19 @@ main {
     max-width: 75%;
 }
 
-/* .currWeather {
-    margin-bottom: 50px;
-} */
+#currWeather {
+    border: 1px solid black;
+    
+}
+
+.weatherCard {
+    background-color:rgb(196, 213, 245)
+}
+
+.card-header {
+    background-color: rgb(100, 60, 175);
+    color: white;
+}
 
 .searchAside {
     float: left;
@@ -46,7 +56,8 @@ main {
 
 .forecastCard {
     width: 200px;
- 
+    border: 1px solid black;
+    background-color:rgb(196, 213, 245)
 }
 
 #savedCities {

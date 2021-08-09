@@ -20,7 +20,7 @@ function processSearch(a) {
     $('#forecastDisplay').empty();
     currSearchResults(userInput);
     saveCity(userInput);
-    
+
   }
 }
 
@@ -55,6 +55,30 @@ function currSearchResults(userInput) {
           // Create Current Weather Card
           var currDate = moment().format('dddd MMMM Do YYYY');
           var weatherImg = data.weather[0].icon
+
+          // UV Index Severity Color Indicator
+          var uvIndex = forecastData.current.uvi
+          var colorIndicator;
+          var textColor;
+              if (uvIndex <= 3) {
+                colorIndicator = "green";
+                textColor = "text-white"
+              }
+              else if (uvIndex >= 3 || uvIndex <= 6) {
+                colorIndicator = "yellow";
+                textColor = "text-dark"
+              }
+              else if (uvIndex >= 6 || uvIndex <= 8) {
+                colorIndicator = "orange";
+                textColor = "text-white"
+              }
+              else {
+                colorIndicator = "red";
+                textColor = "text-white"
+              }
+              console.log(colorIndicator);
+          // var uvBadge = $("<span>").attr("class", "badge")..attr("style", ("background-color:" + colorIndicator)).text(uvIndex)
+
           // Dynamically create card
           var currWeatherCard = $(`
         <div class="card weatherCard">
@@ -68,7 +92,9 @@ function currSearchResults(userInput) {
             <p>Temperature: ${data.main.temp} °F</p>
             <p>Wind: ${data.wind.speed} MPH</p>
             <p>Humidity: ${data.main.humidity} %</p>
-            <p>UV Index: ${forecastData.current.uvi}</p>
+            <p>UV Index: 
+              <span class="badge p-2 ${textColor}" style="background-color: ${colorIndicator}">${uvIndex}</span>
+            </p>
           </div>
         </div>
       `)
@@ -89,7 +115,7 @@ function fiveDayForecastResults(forecastData) {
 
   // Dynamically create forecast header and container for the 5 cards
   var forecastDisplay = $("#forecastDisplay");
-  var forecastHeader = $("<h3>").text("5-Day Forecast");
+  var forecastHeader = $("<h3>").text("5-Day Forecast:");
   forecastDisplay.append(forecastHeader);
   var fiveDayCards = $("<div>").attr("id", "fiveDayCards");
   forecastDisplay.append(fiveDayCards)
@@ -168,8 +194,8 @@ function pastCitySearch(pastCity) {
 }
 
 // Event Listener for Saved City Buttons
-$("#savedCities").on("click" ,function (e) {
-  var pastCity = e.target.innerHTML 
+$("#savedCities").on("click", function (e) {
+  var pastCity = e.target.innerHTML
   console.log(pastCity);
   pastCitySearch(pastCity);
 })
